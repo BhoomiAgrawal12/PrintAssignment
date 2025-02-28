@@ -159,11 +159,14 @@ export default function Preview() {
           break;
         }
         case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
+          // FIX: Read as binary string instead of arrayBuffer
           const workbook = XLSX.read(content, { type: 'binary' });
           const sheetName = workbook.SheetNames[0];
           const sheet = workbook.Sheets[sheetName];
-          const sheet_html = XLSX.utils.sheet_to_html(sheet);
-          setPreviewContent(<div dangerouslySetInnerHTML={{ __html: sheet_html }} />);
+  
+          // Convert sheet to HTML table
+          const sheetHtml = XLSX.utils.sheet_to_html(sheet);
+          setPreviewContent(<div dangerouslySetInnerHTML={{ __html: sheetHtml }} />);
           break;
         }
         case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
