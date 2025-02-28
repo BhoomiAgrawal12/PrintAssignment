@@ -23,7 +23,7 @@ export default function Preview() {
     if (files.length > 0) {
       renderFile(files[0]);
     }
-  }, [files, width, height, layout]); // Re-run render when these values change
+  }, [files, width, height, layout]); 
 
   const renderFile = async (file) => {
     const reader = new FileReader();
@@ -131,12 +131,15 @@ export default function Preview() {
             border: `${borderSize}px solid black`,
             width: `${width}%`,
             height: `${height}%`,
-            transform: layout === 'landscape' ? 'rotate(90deg)' : 'none',
+            transform: layout === 'landscape' ? 'rotate(0deg)' : 'none',
             overflow: 'hidden'
           }}
         >
           <h2 className="text-lg font-semibold mb-4">Preview</h2>
-          <div className="w-full h-96 flex justify-center items-center overflow-auto">
+          <div className="w-full h-96 flex justify-center items-center overflow-auto preview-content"
+            style={{
+              transform: layout === 'landscape' ? 'rotate(90deg)' : 'none',
+            }}>
             {docFiles.length > 0 ? (
               <DocViewer documents={docFiles} pluginRenderers={DocViewerRenderers} />
             ) : (
